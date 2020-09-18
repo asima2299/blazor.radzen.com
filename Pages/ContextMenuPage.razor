@@ -1,0 +1,35 @@
+﻿@page "/contextmenu"
+
+@inject ContextMenuService contextMenuService
+
+<RadzenExample Name="ContextMenu" Documentation="true">
+    <div class="row">
+        <div class="col-md-12">
+            <h3 style="margin-top: 20px;">Show context menu for Radzen component</h3>
+            <RadzenButton Text="Show context menu" ContextMenu="@(args => ShowContextMenu(args) )" />
+            <br />
+            <h3 style="margin-top: 20px;">Show context menu for HTML elment</h3>
+            <button @oncontextmenu="@(args => ShowContextMenu(args))" @oncontextmenu:preventDefault="true">
+                Show context menu
+            </button>
+        </div>
+    </div>
+</RadzenExample>
+
+@code {
+    void ShowContextMenu(MouseEventArgs args, ContextMenuOptions options = null) => contextMenuService.Open(args, ds =>
+@<div>
+    <RadzenMenu>
+        <RadzenMenuItem Text="More">
+            <RadzenMenuItem Text="Item1"></RadzenMenuItem>
+            <RadzenMenuItem Text="Item2"></RadzenMenuItem>
+            <RadzenMenuItem Text="More items">
+                <RadzenMenuItem Text="More sub items">
+                    <RadzenMenuItem Text="Item1"></RadzenMenuItem>
+                    <RadzenMenuItem Text="Item2"></RadzenMenuItem>
+                </RadzenMenuItem>
+            </RadzenMenuItem>
+        </RadzenMenuItem>
+    </RadzenMenu>
+</div>, options);
+}
